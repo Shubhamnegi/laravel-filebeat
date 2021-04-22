@@ -1,0 +1,27 @@
+filebeat:  
+  prospectors:    
+    - paths:
+        - /usr/app/storage/logs/laravel.log
+        - /var/log/nginx/access.log
+        - /var/log/nginx/error.log
+      document_type: "php-kubernetes"
+      fields:  {application: php-kubernetes, environment: Production}
+      multiline.pattern: '^[[:space:]]'
+      multiline.negate: false
+      multiline.match: after
+      input_type: log
+output:
+  kafka:
+    hosts: ["logs.limetray.infra:9092"]
+    topics:
+      - topic: '%{[type]}'
+    use_type: true
+    partition.round_robin:
+      reachable_only: false
+    required_acks: 1
+    compression: gzip
+    max_message_bytes: 1000000
+logging:
+  files:
+    rotateeverybytes: 10485760 # = 10MB
+
