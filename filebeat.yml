@@ -12,7 +12,7 @@ filebeat:
       input_type: log
 output:
   kafka:
-    hosts: ["logs.limetray.infra:9092"]
+    hosts: ["domain:9092"]
     topics:
       - topic: '%{[type]}'
     use_type: true
