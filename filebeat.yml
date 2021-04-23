@@ -1,7 +1,7 @@
 filebeat:  
   prospectors:    
     - paths:
-        - /usr/app/storage/logs/laravel.log
+        - /usr/app/storage/logs/*.log
         - /var/log/nginx/access.log
         - /var/log/nginx/error.log
       document_type: "php-kubernetes"
@@ -14,7 +14,7 @@ output:
   kafka:
     hosts: ["logs.limetray.infra:9092"]
     topics:
-      - topic: '%{[type]}'
+      - topic: 'php-kubernetes'
     use_type: true
     partition.round_robin:
       reachable_only: false

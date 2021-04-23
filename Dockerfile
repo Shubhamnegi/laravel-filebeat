@@ -4,6 +4,6 @@ WORKDIR /filebeat/
 
 COPY filebeat.yml filebeat.yml
 
-#CMD ["./filebeat","-e","-c", "filebeat.yml"]
+CMD ["./filebeat","-e","-c", "filebeat.yml"]
 
-CMD ["sleep","300"]
+#CMD ["sleep","300"]
